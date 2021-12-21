@@ -1,0 +1,18 @@
+.cartella {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #fff;
+  padding: 8px 0px;
+  border-radius: 40px;
+  width: calc(80% / 2);
+  margin-bottom: 0.3%;
+  margin-right: 5%;
+  box-shadow: 5px 5px 10px #444;
+  background: linear-gradient(-180deg, #ffe600 0%, #ffc400 100%);
+  min-width: 310px;
+}
+.row {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
