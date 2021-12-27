@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -8,13 +8,18 @@
 }
 main {
   display: flex;
-  height: calc(100% - 100px);  
+  height: calc(100% - 100px);
+}
+.main-content {
+  padding: 20px;
+  margin: auto;
 }
 aside {
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 100%;  
+  height: 100%;
+  padding: 20px;
   /* background-color: #0cd977; */
   /* background: linear-gradient(45deg,#3494d2, #0cd977); */
   background: linear-gradient(-180deg, #00c9ff 0%, #92fe9d 100%);
@@ -28,7 +33,7 @@ aside {
   height: 100%;
   overflow-y: auto;
   background: linear-gradient(-180deg, #00c9ff 0%, #3494d2 100%);
-  padding-bottom: 10px;  
+  padding-bottom: 10px;
 }
 .row-cartella {
   display: flex;
@@ -36,7 +41,6 @@ aside {
   width: 100%;
   flex-wrap: wrap;
 }
-
 .footer-wrapper {
   height: 100px;
   /* background-color: #f18b00; */

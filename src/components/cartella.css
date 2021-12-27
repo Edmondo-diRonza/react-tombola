@@ -10,6 +10,7 @@
   box-shadow: 5px 5px 10px #444;
   background: linear-gradient(-180deg, #ffe600 0%, #ffc400 100%);
   min-width: 310px;
+  max-width: 400px;
 }
 .row {
   display: flex;
