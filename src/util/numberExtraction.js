@@ -10,5 +10,5 @@ export const numberExtraction = (numbers, min = 1, max = numbers) => {
       ? numberPool.push(extractedNumber)
       : iterations++;
   }
-  return { numbers: numberPool, iterations };
+  return { numbers: numberPool, iterations: iterations + numbers };
 };
