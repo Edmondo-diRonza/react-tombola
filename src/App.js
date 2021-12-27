@@ -1,5 +1,6 @@
 import "./App.css";
-import Cartella from "./components/Cartella";
+import Cartellone from "./components/Cartellone";
+import Buttons from "./components/Buttons";
 import NumberProvider from "./context/Numbers";
 
 function App() {
@@ -11,21 +12,12 @@ function App() {
             <h2>Tombola 2022</h2>
           </aside>
           <section className="main-content">
-            <div className="row-cartella">
-              <Cartella offset={0} cartella={0} />
-              <Cartella offset={5} cartella={1}/>
-            </div>
-            <div className="row-cartella">
-              <Cartella offset={30} cartella={2}/>
-              <Cartella offset={35} cartella={3}/>
-            </div>
-            <div className="row-cartella">
-              <Cartella offset={60} cartella={4}/>
-              <Cartella offset={65} cartella={5}/>
-            </div>
+            <Cartellone />
           </section>
         </main>
-        <footer className="footer-wrapper"></footer>
+        <footer className="footer-wrapper">
+          <Buttons />
+        </footer>
       </div>
     </NumberProvider>
   );
