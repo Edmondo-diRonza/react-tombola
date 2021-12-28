@@ -15,7 +15,7 @@ export default function NumberProvider({ children }) {
     { r0: [], r1: [], r2: [] },
   ]);
 
-  const thisGameNumbers = useRef([]); // memorizzo il pool dei numeri estratti in questa partita su una Ref
+  const thisGameNumbers = useRef({ numbers: false }); // memorizzo il pool dei numeri estratti in questa partita su una Ref
   const indexOfExtracted = useRef(-1); //indice estrazione corrente
   const winType = useRef(1);
   const winningList = [
@@ -38,31 +38,34 @@ export default function NumberProvider({ children }) {
       { r0: [], r1: [], r2: [] },
       { r0: [], r1: [], r2: [] },
     ]);
+    indexOfExtracted.current = -1; //azzero l'indice di estrazione
     console.log("Partita inizializzata!");
   };
 
   const callNumbers = () => {
-    if (!!thisGameNumbers) {
-      if (indexOfExtracted.current < 89) {
-        indexOfExtracted.current++;
-        let extracted =
-          thisGameNumbers.current.numbers[indexOfExtracted.current];
-        speakNow(extracted);
-        let cartella = chooseCartella(extracted); //cerco cartella su cui memorizzare
-        let riga = chooseRowCartella(extracted); //cerco riga su cui memorizzare
-        let backupObjArray = JSON.parse(JSON.stringify(isCalled)); //TROVARE ALTRA SOLUZIONE QUI, NON VA BENE!?!?!?!?
-        backupObjArray[cartella][riga].push(extracted); //aggiungo l'estratto
-        setIsCalled(backupObjArray);
+    if (thisGameNumbers.current.numbers) {
+      if (winType.current !== 6) {
+        if (indexOfExtracted.current < 89) {
+          indexOfExtracted.current++;
+          let extracted =
+            thisGameNumbers.current.numbers[indexOfExtracted.current];
+          speakNow(extracted);
+          let cartella = chooseCartella(extracted); //cerco cartella su cui memorizzare
+          let riga = chooseRowCartella(extracted); //cerco riga su cui memorizzare
+          let backupObjArray = JSON.parse(JSON.stringify(isCalled)); //TROVARE ALTRA SOLUZIONE QUI, NON VA BENE!?!?!?!?
+          backupObjArray[cartella][riga].push(extracted); //aggiungo l'estratto
+          setIsCalled(backupObjArray);
 
-        const currentWin = winCheck(cartella, riga, extracted);
-        if (currentWin) {
-          //controllo se c'è una vincita
-          winningArray.current.push(currentWin); //creo un array con storico vincite
+          const currentWin = winCheck(cartella, riga, extracted);
+          if (currentWin) {
+            //controllo se c'è una vincita
+            winningArray.current.push(currentWin); //creo un array con storico vincite
 
-          speakNow(currentWin.winType);
-          console.log("Ultime vincite: ", winningArray.current);
-        }
-      } else console.log("Ultimo numero già estratto!");
+            speakNow(currentWin.winType);
+            console.log("Ultime vincite: ", winningArray.current);
+          }
+        } else console.log("Ultimo numero già estratto!");
+      } else console.log("Partita terminata, hai già fatto tombola!");
     } else console.log("Devi prima inizializzare la partita!");
   };
 
@@ -86,21 +89,26 @@ export default function NumberProvider({ children }) {
     } else {
       let length = [];
       const correctionIndex = ["r0", "r1", "r2"].indexOf(riga);
-
       length[0] = isCalled[cartella]["r0"].length;
       length[1] = isCalled[cartella]["r1"].length;
       length[2] = isCalled[cartella]["r2"].length;
-
       length[correctionIndex]++; // aggiungo 1 perchè useState non si è ancora aggiornato e non voglio usare useEffect
 
-      if (length[0] === 5 && length[1] === 5 && length[2] === 5)
+      if (length[0] === 5 && length[1] === 5 && length[2] === 5) {
+        winType.current++;
         return {
-          winType: winningList[winType.current],
+          winType: winningList[winType.current - 1],
           cartella,
           riga,
-          vincenti: [isCalled[cartella], lastNumber],
+          vincenti: [
+            ...isCalled[cartella]["r0"],
+            ...isCalled[cartella]["r1"],
+            ...isCalled[cartella]["r2"],
+            lastNumber,
+          ],
           index: indexOfExtracted.current,
         };
+      }
     }
     return false;
   };
@@ -113,6 +121,8 @@ export default function NumberProvider({ children }) {
         startGame,
         callNumbers,
         searchNumber,
+        thisGameNumbers,
+        indexOfExtracted,
       }}
     >
       {children}

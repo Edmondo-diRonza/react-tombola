@@ -1,0 +1,31 @@
+.number-list {
+  display: flex;
+  flex-direction: column-reverse;
+  list-style: none;
+  font-size: 25px;
+  color: white;
+}
+.number-list li {
+  display: flex;
+  align-items: center;
+}
+.number-list li p {
+  display: inline-block;
+  width: calc(100% - 70px);
+  margin-left: 10px;
+  padding: 2px 5px;
+  border: 3px solid #fff;
+  border-radius: 10px;
+}
+.numberlistitem {
+  display: inline-block;
+  text-align: center;
+  line-height: 45px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: #f18b00;
+  border: 2px solid #5e3700;
+  margin: 1px 2px;
+  box-shadow: 1px 1px 4px #444;
+}
