@@ -83,7 +83,7 @@ export default function NumberProvider({ children }) {
           cartella,
           riga,
           vincenti: [...isCalled[cartella][riga], lastNumber],
-          index: indexOfExtracted.current,
+          indiceNumeroEstratto: indexOfExtracted.current,
         };
       }
     } else {
@@ -106,7 +106,7 @@ export default function NumberProvider({ children }) {
             ...isCalled[cartella]["r2"],
             lastNumber,
           ],
-          index: indexOfExtracted.current,
+          indiceNumeroEstratto: indexOfExtracted.current,
         };
       }
     }

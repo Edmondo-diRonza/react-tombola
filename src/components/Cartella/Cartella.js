@@ -1,8 +1,8 @@
 import React from "react";
-import NumberItem from "./NumberItem";
+import NumberItem from "../NumberItem/NumberItem";
 import "./cartella.css";
 import { useContext } from "react";
-import { NumberContext } from "../context/Numbers";
+import { NumberContext } from "../../context/Numbers";
 
 const Cartella = ({ offset, cartella }) => {
   const { isCalled } = useContext(NumberContext);

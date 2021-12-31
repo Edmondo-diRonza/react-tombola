@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { NumberContext } from "../context/Numbers";
+import { NumberContext } from "../../context/Numbers";
 import "./buttons.css";
 
 const Buttons = () => {

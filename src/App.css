@@ -24,7 +24,7 @@ aside {
   /* background: linear-gradient(45deg,#3494d2, #0cd977); */
   background: linear-gradient(-180deg, #00c9ff 0%, #92fe9d 100%);
   overflow-y: hidden;
-  /* z-index: 1; */
+  /* z-index: 1; */  
 }
 
 .main-content {

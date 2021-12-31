@@ -1,8 +1,8 @@
 import React from "react";
 import "./numberItem.css";
-import { speakNow } from "../util/speakNow";
+import { speakNow } from "../../util/speakNow";
 import { useContext } from "react";
-import { NumberContext } from "../context/Numbers";
+import { NumberContext } from "../../context/Numbers";
 
 const NumberItem = ({ value, isCalled = false }) => {
   const { searchNumber } = useContext(NumberContext);

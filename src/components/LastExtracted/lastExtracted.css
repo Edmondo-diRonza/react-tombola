@@ -7,7 +7,7 @@
 }
 .number-list li {
   display: flex;
-  align-items: center;
+  align-items: center;  
 }
 .number-list li p {
   display: inline-block;

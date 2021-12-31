@@ -1,13 +1,12 @@
 import React from "react";
 import "./lastExtracted.css";
-import { NumberContext } from "../context/Numbers";
+import { NumberContext } from "../../context/Numbers";
 import { useContext } from "react";
 
 const LastExtracted = () => {
   const { thisGameNumbers, indexOfExtracted } = useContext(NumberContext);
   const extractedNumbers = thisGameNumbers.current.numbers;
   const index = indexOfExtracted.current;
-  console.log(index);
 
   return (
     <div>

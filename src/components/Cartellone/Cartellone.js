@@ -1,5 +1,5 @@
 import React from "react";
-import Cartella from "./Cartella";
+import Cartella from "../Cartella/Cartella";
 
 const Cartellone = () => {
   return (
