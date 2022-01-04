@@ -26,7 +26,12 @@ export default function NumberProvider({ children }) {
     "CINQUINA",
     "TOMBOLA",
   ];
-  const winningArray = useRef([]);
+  const winningArray = useRef([]); // array delle vincite
+
+  const [showOverlay, setShowOverlay] = useState({
+    overlay: "overlay-layer hide",
+    bigNumber: "big-number hide",
+  }); // visualizzazione overlay
 
   const startGame = () => {
     thisGameNumbers.current = numberExtraction(90);
@@ -49,6 +54,18 @@ export default function NumberProvider({ children }) {
           indexOfExtracted.current++;
           let extracted =
             thisGameNumbers.current.numbers[indexOfExtracted.current];
+//creare una funzione e migliorare l'uscita dell'overlay
+          setShowOverlay({
+            overlay: "overlay-layer",
+            bigNumber: "big-number",
+          });
+          setTimeout(() => {
+            setShowOverlay({
+              overlay: "overlay-layer hide",
+              bigNumber: "big-number hide",
+            });
+          }, 5000);
+
           speakNow(extracted);
           let cartella = chooseCartella(extracted); //cerco cartella su cui memorizzare
           let riga = chooseRowCartella(extracted); //cerco riga su cui memorizzare
@@ -123,6 +140,7 @@ export default function NumberProvider({ children }) {
         searchNumber,
         thisGameNumbers,
         indexOfExtracted,
+        showOverlay,
       }}
     >
       {children}

@@ -11,8 +11,18 @@ main {
   height: calc(100% - 100px);
 }
 .main-content {
-  padding: 20px;
-  margin: auto;
+  padding: 10px;  
+  position: relative;
+  width: calc(100% - 300px);
+  height: 100%;
+  overflow-y: auto;
+  background: linear-gradient(-180deg, #00c9ff 0%, #3494d2 100%);
+}
+.cartellone-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
 }
 aside {
   display: flex;
@@ -26,20 +36,14 @@ aside {
   overflow-y: hidden;
   /* z-index: 1; */  
 }
-
-.main-content {
-  width: calc(100% - 300px);
-  text-align: center;
-  height: 100%;
-  overflow-y: auto;
-  background: linear-gradient(-180deg, #00c9ff 0%, #3494d2 100%);
-  padding-bottom: 10px;
-}
 .row-cartella {
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 30%;
   flex-wrap: wrap;
+  align-content: space-around;
+  align-items: center;
 }
 .footer-wrapper {
   height: 100px;

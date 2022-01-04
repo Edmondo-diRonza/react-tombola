@@ -3,9 +3,10 @@ import Cartellone from "./components/Cartellone/Cartellone";
 import Buttons from "./components/Buttons/Buttons";
 import NumberProvider from "./context/Numbers";
 import LastExtracted from "./components/LastExtracted/LastExtracted";
+import NumberOverlay from "./components/NumberOverlay/NumberOverlay";
 
 function App() {
-  console.log(window.screen.availWidth,window.screen.availHeight );
+  console.log(window.screen.availWidth, window.screen.availHeight);
   return (
     <NumberProvider>
       <div className="page-wrapper">
@@ -15,7 +16,10 @@ function App() {
             <LastExtracted />
           </aside>
           <section className="main-content">
-            <Cartellone />
+            <div className="cartellone-wrapper">
+              <Cartellone />
+              <NumberOverlay />
+            </div>
           </section>
         </main>
         <footer className="footer-wrapper">

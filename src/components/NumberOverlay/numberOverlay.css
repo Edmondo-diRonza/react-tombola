@@ -1,0 +1,37 @@
+.overlay-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: #f18b00;
+}
+.overlay-layer.hide {
+  visibility: hidden;  
+}
+.big-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%,-50%);
+  display: inline-block;
+  font-size: 45vh;
+  width: 70vh;
+  height: 70vh;
+  color: #f18b00;
+  text-shadow: 6px 6px #5e3700;
+  border: 35px solid #5e3700;
+  border-radius: 100%;
+  line-height: 58vh;
+  background-color: white;
+  box-shadow: 5px 5px 100px rgb(68, 68, 68);   
+  transition: opacity 1s;
+  opacity: 1;
+}
+
+.big-number.hide {
+  opacity: 0;
+  pointer-events: none;
+}
