@@ -12,7 +12,7 @@ function App() {
       <div className="page-wrapper">
         <main>
           <aside>
-            <h2>Tombola 2022</h2>
+            <h1>Tombola 2022</h1>
             <LastExtracted />
           </aside>
           <section className="main-content">

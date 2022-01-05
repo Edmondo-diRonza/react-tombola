@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid #5e3700;
   padding: 13px 15px;
   border-radius: 40px;
   width: calc(80% / 2);
   margin-bottom: 0.3%;
   margin-right: 5%;
-  box-shadow: 5px 5px 10px #444;
+  box-shadow: 1px 1px 9px #fff;
   background: linear-gradient(-180deg, #ffe600 0%, #ffc400 100%);
   min-width: 310px;
   max-width: 400px;

@@ -11,7 +11,7 @@ main {
   height: calc(100% - 100px);
 }
 .main-content {
-  padding: 10px;  
+  padding: 10px;
   position: relative;
   width: calc(100% - 300px);
   height: 100%;
@@ -34,7 +34,17 @@ aside {
   /* background: linear-gradient(45deg,#3494d2, #0cd977); */
   background: linear-gradient(-180deg, #00c9ff 0%, #92fe9d 100%);
   overflow-y: hidden;
-  /* z-index: 1; */  
+  /* z-index: 1; */
+}
+aside h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+aside h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
 .row-cartella {
   display: flex;
