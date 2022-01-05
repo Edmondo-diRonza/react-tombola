@@ -7,10 +7,10 @@
 }
 .number-list li {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 .number-list li p {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 500;
   display: inline-block;
   width: calc(100% - 70px);
@@ -23,7 +23,7 @@
   color: #5e3700;
 }
 .numberlistitem {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   display: inline-block;
   text-align: center;
   line-height: 45px;
@@ -35,5 +35,4 @@
   margin: 1px 2px;
   box-shadow: 1px 1px 4px #fff;
   font-weight: 700;
-  
 }

@@ -4,14 +4,20 @@ import { NumberContext } from "../../context/Numbers";
 import "./buttons.css";
 
 const Buttons = () => {
-  const { startGame, callNumbers } = useContext(NumberContext);
+  const { startGame, callNumbers, indexOfExtracted, winType } =
+    useContext(NumberContext);
+  const buttonStatus =
+    indexOfExtracted.current === false || winType.current > 5;
   return (
     <div>
       <button className="btn" onClick={() => startGame()}>
-        Inizia Partita
+        {buttonStatus ? "Nuova" : "Reset"}
       </button>
 
-      <button className="btn" onClick={() => callNumbers()}>
+      <button
+        className={buttonStatus ? "btn greyed" : "btn "}
+        onClick={() => callNumbers()}
+      >
         Chiama Numero
       </button>
     </div>

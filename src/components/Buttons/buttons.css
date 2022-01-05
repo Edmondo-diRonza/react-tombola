@@ -14,3 +14,7 @@
   background-color: #2b7cb3;
   color: #fff;
 }
+.greyed {
+  pointer-events: none;
+  opacity: 0.3;
+}

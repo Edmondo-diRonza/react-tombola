@@ -16,7 +16,7 @@ export default function NumberProvider({ children }) {
   ]);
 
   const thisGameNumbers = useRef({ numbers: false }); // memorizzo il pool dei numeri estratti in questa partita su una Ref
-  const indexOfExtracted = useRef(-1); //indice estrazione corrente
+  const indexOfExtracted = useRef(false); //indice estrazione corrente
   const winType = useRef(1);
   const winningList = [
     null,
@@ -44,6 +44,7 @@ export default function NumberProvider({ children }) {
       { r0: [], r1: [], r2: [] },
     ]);
     indexOfExtracted.current = -1; //azzero l'indice di estrazione
+    speakNow("Partita inizializzata");
     console.log("Partita inizializzata!");
   };
 
@@ -141,6 +142,7 @@ export default function NumberProvider({ children }) {
         thisGameNumbers,
         indexOfExtracted,
         showOverlay,
+        winType
       }}
     >
       {children}
