@@ -6,18 +6,10 @@ import { speakNow } from "../util/speakNow";
 export const NumberContext = createContext();
 
 export default function NumberProvider({ children }) {
-  const [isCalled, setIsCalled] = useState([
-    { r0: [], r1: [], r2: [] },
-    { r0: [], r1: [], r2: [] },
-    { r0: [], r1: [], r2: [] },
-    { r0: [], r1: [], r2: [] },
-    { r0: [], r1: [], r2: [] },
-    { r0: [], r1: [], r2: [] },
-  ]);
-
-  const thisGameNumbers = useRef({ numbers: false }); // memorizzo il pool dei numeri estratti in questa partita su una Ref
-  const indexOfExtracted = useRef(false); //indice estrazione corrente
-  const winType = useRef(1);
+  const [isCalled, setIsCalled] = useState([]); // Stato aggiornamento delle cartelle e per le vincite
+  const thisGameNumbers = useRef({ numbers: false }); // pool di tutti i numeri estratti all'inizializzazione della partita
+  const indexOfExtracted = useRef(false); //indice avanzamento estrazione corrente
+  const winType = useRef(1); // Ref avanzamento vincite tabellone
   const winningList = [
     null,
     "AMBO",
@@ -25,13 +17,15 @@ export default function NumberProvider({ children }) {
     "QUATERNA",
     "CINQUINA",
     "TOMBOLA",
-  ];
-  const winningArray = useRef([]); // array delle vincite
+  ]; // Array col nome delle vincite
+  const winningArray = useRef([]); // array in cui salvo gli eventi di vincita del tabellone
 
   const [showOverlay, setShowOverlay] = useState({
     overlay: "overlay-layer hide",
     bigNumber: "big-number hide",
   }); // visualizzazione overlay
+
+  const myInterval = useRef(false); //intervallo estrazione automatica
 
   const startGame = () => {
     thisGameNumbers.current = numberExtraction(90);
@@ -55,7 +49,7 @@ export default function NumberProvider({ children }) {
           indexOfExtracted.current++;
           let extracted =
             thisGameNumbers.current.numbers[indexOfExtracted.current];
-//creare una funzione e migliorare l'uscita dell'overlay
+          //creare una funzione e migliorare l'uscita dell'overlay
           setShowOverlay({
             overlay: "overlay-layer",
             bigNumber: "big-number",
@@ -68,19 +62,24 @@ export default function NumberProvider({ children }) {
           }, 5000);
 
           speakNow(extracted);
-          let cartella = chooseCartella(extracted); //cerco cartella su cui memorizzare
-          let riga = chooseRowCartella(extracted); //cerco riga su cui memorizzare
-          let backupObjArray = JSON.parse(JSON.stringify(isCalled)); //TROVARE ALTRA SOLUZIONE QUI, NON VA BENE!?!?!?!?
-          backupObjArray[cartella][riga].push(extracted); //aggiungo l'estratto
-          setIsCalled(backupObjArray);
+          //cerco riga e cartella dove andranno memorizzati tramite funzioni su util
+          let cartella = chooseCartella(extracted);
+          let riga = chooseRowCartella(extracted);
 
-          const currentWin = winCheck(cartella, riga, extracted);
-          if (currentWin) {
-            //controllo se c'è una vincita
-            winningArray.current.push(currentWin); //creo un array con storico vincite
+          //adesso controllo NON sia duplicato a causa del tasto step backward ed eventualmente memorizzo e controllo vincite
+          if (!isCalled[cartella][riga].includes(extracted)) {
+            let backupObjArray = JSON.parse(JSON.stringify(isCalled)); //TROVARE ALTRA SOLUZIONE QUI, NON VA BENE!?!?!?!?
+            backupObjArray[cartella][riga].push(extracted); //aggiungo l'estratto
+            setIsCalled(backupObjArray);
 
-            speakNow(currentWin.winType);
-            console.log("Ultime vincite: ", winningArray.current);
+            const currentWin = winCheck(cartella, riga, extracted);
+            if (currentWin) {
+              //controllo se c'è una vincita
+              winningArray.current.push(currentWin); //creo un array con storico vincite
+
+              speakNow(currentWin.winType);
+              console.log("Ultime vincite: ", winningArray.current);
+            }
           }
         } else console.log("Ultimo numero già estratto!");
       } else console.log("Partita terminata, hai già fatto tombola!");
@@ -142,7 +141,8 @@ export default function NumberProvider({ children }) {
         thisGameNumbers,
         indexOfExtracted,
         showOverlay,
-        winType
+        winType,
+        myInterval,
       }}
     >
       {children}

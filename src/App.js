@@ -6,7 +6,7 @@ import LastExtracted from "./components/LastExtracted/LastExtracted";
 import NumberOverlay from "./components/NumberOverlay/NumberOverlay";
 
 function App() {
-  console.log(window.screen.availWidth, window.screen.availHeight);
+  console.log("Dimensioni attuali della viewport ", window.screen.availWidth, window.screen.availHeight);
   return (
     <NumberProvider>
       <div className="page-wrapper">
