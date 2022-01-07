@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { NumberContext } from "../../context/Numbers";
 import "./buttons.css";
-// import { speakNow } from "../../util/speakNow";
+import { speakNow } from "../../util/speakNow";
 
 const Buttons = () => {
   const { startGame, callNumbers, indexOfExtracted, winType, myInterval } =
@@ -25,6 +25,11 @@ const Buttons = () => {
       callNumbers();
     }
   };
+  const handleAutoExtraction = () => {    
+     speakNow("Autoestrazione attiva!");
+     callNumbers();    
+     myInterval.current = setInterval(() => callNumbers(), 6000);
+  };
   return (
     <div>
       <div className="buttons-container">
@@ -44,14 +49,7 @@ const Buttons = () => {
           </button>
           <button
             className={buttonStatus ? "btn greyed" : "btn  "}
-            onClick={() => {
-              alert(
-                "Disabilitata perchè presenta funzionamento altalenante! Riprova fra qualche giorno!"
-              );
-              // speakNow("Autoestrazione attiva!")
-              // callNumbers();
-              // myInterval.current = setInterval(() => callNumbers(), 12000);
-            }}
+            onClick={() => handleAutoExtraction()}
           >
             AUTO <i className="fas fa-robot"></i>
           </button>
@@ -59,7 +57,7 @@ const Buttons = () => {
             className={myInterval.current ? "btn " : "btn greyed "}
             onClick={() => {
               clearInterval(myInterval.current);
-              myInterval.current = false;
+              myInterval.current = -1;
             }}
           >
             STOP <i className="fas fa-robot"></i>

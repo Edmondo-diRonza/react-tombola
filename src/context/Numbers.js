@@ -68,9 +68,9 @@ export default function NumberProvider({ children }) {
 
           //adesso controllo NON sia duplicato a causa del tasto step backward ed eventualmente memorizzo e controllo vincite
           if (!isCalled[cartella][riga].includes(extracted)) {
-            let backupObjArray = JSON.parse(JSON.stringify(isCalled)); //TROVARE ALTRA SOLUZIONE QUI, NON VA BENE!?!?!?!?
-            backupObjArray[cartella][riga].push(extracted); //aggiungo l'estratto
-            setIsCalled(backupObjArray);
+            let arrayBackup = isCalled.map((el,i) => el);
+            arrayBackup[cartella][riga].push(extracted);
+            setIsCalled(arrayBackup);
 
             const currentWin = winCheck(cartella, riga, extracted);
             if (currentWin) {
@@ -92,24 +92,22 @@ export default function NumberProvider({ children }) {
 
   const winCheck = (cartella, riga, lastNumber) => {
     if (winType.current < 5) {
-      let length = isCalled[cartella][riga].length + 1;
+      let length = isCalled[cartella][riga].length;
       if (length === winType.current + 1) {
         winType.current++;
         return {
           winType: winningList[winType.current - 1],
           cartella,
           riga,
-          vincenti: [...isCalled[cartella][riga], lastNumber],
+          vincenti: [...isCalled[cartella][riga]],
           indiceNumeroEstratto: indexOfExtracted.current,
         };
       }
     } else {
       let length = [];
-      const correctionIndex = ["r0", "r1", "r2"].indexOf(riga);
       length[0] = isCalled[cartella]["r0"].length;
       length[1] = isCalled[cartella]["r1"].length;
       length[2] = isCalled[cartella]["r2"].length;
-      length[correctionIndex]++; // aggiungo 1 perchè useState non si è ancora aggiornato e non voglio usare useEffect
 
       if (length[0] === 5 && length[1] === 5 && length[2] === 5) {
         winType.current++;
@@ -117,12 +115,7 @@ export default function NumberProvider({ children }) {
           winType: winningList[winType.current - 1],
           cartella,
           riga,
-          vincenti: [
-            ...isCalled[cartella]["r0"],
-            ...isCalled[cartella]["r1"],
-            ...isCalled[cartella]["r2"],
-            lastNumber,
-          ],
+          vincenti: isCalled[cartella],
           indiceNumeroEstratto: indexOfExtracted.current,
         };
       }
