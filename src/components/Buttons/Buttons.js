@@ -5,18 +5,16 @@ import "./buttons.css";
 import { speakNow } from "../../util/speakNow";
 
 const Buttons = () => {
-  const { startGame, callNumbers, indexOfExtracted, winType, myInterval } =
-    useContext(NumberContext);
-  const buttonStatus =
-    indexOfExtracted.current === false || winType.current > 5;
-  const winningList = [
-    "AMBO",
-    "AMBO",
-    "TERNO",
-    "QUATERNA",
-    "CINQUINA",
-    "TOMBOLA",
-  ];
+  const {
+    startGame,
+    callNumbers,
+    indexOfExtracted,
+    winType,
+    myInterval,
+    winningList,
+    setWinType,
+  } = useContext(NumberContext);
+  const buttonStatus = indexOfExtracted.current === false || winType > 5;
   const oneStepBackwardFlag = indexOfExtracted.current >= 0; // check se possibile tornare indietro
 
   const handleStepBackward = () => {
@@ -25,10 +23,10 @@ const Buttons = () => {
       callNumbers();
     }
   };
-  const handleAutoExtraction = () => {    
-     speakNow("Autoestrazione attiva!");
-     callNumbers();    
-     myInterval.current = setInterval(() => callNumbers(), 6000);
+  const handleAutoExtraction = () => {
+    speakNow("Autoestrazione attiva!");
+    callNumbers();
+    myInterval.current = setInterval(() => callNumbers(), 6000);
   };
   return (
     <div>
@@ -45,7 +43,7 @@ const Buttons = () => {
             }
             onClick={() => handleStepBackward()}
           >
-            <i className="fas fa-chevron-circle-left"></i> Ultimo
+            <i className="fas fa-redo"></i> Ripeti
           </button>
           <button
             className={buttonStatus ? "btn greyed" : "btn  "}
@@ -71,16 +69,40 @@ const Buttons = () => {
           </button>
         </div>
         <div className="winning-summary">
-          <p>Si aspetta: </p>
-          <p>
-            <strong>{winningList[winType.current]}</strong>
-          </p>
-          {/* <button
-            className={buttonStatus ? "btn greyed" : "btn "}
-            onClick={() => (winType.current = winType.current++)}
-          >
-            Effettuata!
-          </button> */}
+          <div className="show-winstatus">
+            <span>
+              {winType !== 6 ? "Si aspetta:" : ""}{" "}
+              <strong>{winningList[winType]}</strong>{" "}
+            </span>
+            {winType !== 6 ? (
+              <button
+                className={buttonStatus ? "btn small greyed" : "btn small  "}
+                onClick={() => {                  
+                  if (indexOfExtracted.current >= winType) {
+                    if (winType < 5) {
+                      setWinType((prev) => prev + 1);
+                    } else if (winType === 5 && indexOfExtracted.current > 13) {
+                      setWinType((prev) => prev + 1);
+                    } else alert("Per una TOMBOLA dei partecipanti, servono ALMENO 15 numeri estratti!");
+                  }else alert(winningList[winType] + " dei partecipanti IMPOSSIBILE! Numeri estratti INSUFFICIENTI");
+                }}
+              >
+                Già Preso <i className="fas fa-sad-cry"></i>
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+
+          {/* <div className="checkboxes greyed">
+            <input
+              type="checkbox"
+              id="overlay-checkbox"
+              checked={true}
+              onChange={() => null}
+            />
+            <label for="overlay-checkbox">Mostra Numero</label>
+          </div> */}
         </div>
       </div>
     </div>

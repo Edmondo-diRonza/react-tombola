@@ -9,7 +9,7 @@ export default function NumberProvider({ children }) {
   const [isCalled, setIsCalled] = useState([]); // Stato aggiornamento delle cartelle e per le vincite
   const thisGameNumbers = useRef({ numbers: false }); // pool di tutti i numeri estratti all'inizializzazione della partita
   const indexOfExtracted = useRef(false); //indice avanzamento estrazione corrente
-  const winType = useRef(1); // Ref avanzamento vincite tabellone
+  const [winType, setWinType] = useState(1); // State avanzamento vincite tabellone
   const winningList = [
     null,
     "AMBO",
@@ -17,12 +17,14 @@ export default function NumberProvider({ children }) {
     "QUATERNA",
     "CINQUINA",
     "TOMBOLA",
+    "PARTITA CONCLUSA!",
   ]; // Array col nome delle vincite
   const winningArray = useRef([]); // array in cui salvo gli eventi di vincita del tabellone
 
   const [showOverlay, setShowOverlay] = useState({
     overlay: "overlay-layer hide",
     bigNumber: "big-number hide",
+    winLayer: "winner-layer hide",
   }); // visualizzazione overlay
 
   const myInterval = useRef(false); //intervallo estrazione automatica
@@ -38,13 +40,15 @@ export default function NumberProvider({ children }) {
       { r0: [], r1: [], r2: [] },
     ]);
     indexOfExtracted.current = -1; //azzero l'indice di estrazione
+    setWinType(1);
+
     speakNow("Partita inizializzata");
     console.log("Partita inizializzata!");
   };
 
   const callNumbers = () => {
     if (thisGameNumbers.current.numbers) {
-      if (winType.current !== 6) {
+      if (winType !== 6) {
         if (indexOfExtracted.current < 89) {
           indexOfExtracted.current++;
           let extracted =
@@ -53,11 +57,13 @@ export default function NumberProvider({ children }) {
           setShowOverlay({
             overlay: "overlay-layer",
             bigNumber: "big-number",
+            winLayer: "winner-layer hide"
           });
           setTimeout(() => {
             setShowOverlay({
               overlay: "overlay-layer hide",
               bigNumber: "big-number hide",
+              winLayer: "winner-layer hide"
             });
           }, 5000);
 
@@ -68,7 +74,7 @@ export default function NumberProvider({ children }) {
 
           //adesso controllo NON sia duplicato a causa del tasto step backward ed eventualmente memorizzo e controllo vincite
           if (!isCalled[cartella][riga].includes(extracted)) {
-            let arrayBackup = isCalled.map((el,i) => el);
+            let arrayBackup = isCalled.map((el) => el);
             arrayBackup[cartella][riga].push(extracted);
             setIsCalled(arrayBackup);
 
@@ -77,7 +83,22 @@ export default function NumberProvider({ children }) {
               //controllo se c'è una vincita
               winningArray.current.push(currentWin); //creo un array con storico vincite
 
+              clearInterval(myInterval.current); //fermo estrazione automatica
+              myInterval.current = false; //riporto a false la ref dell'intervallo
               speakNow(currentWin.winType);
+              setShowOverlay({
+                overlay: "overlay-layer",
+                bigNumber: "big-number hide",
+                winLayer: "winner-layer"
+              });
+              setTimeout(() => {
+                setShowOverlay({
+                  overlay: "overlay-layer hide",
+                  bigNumber: "big-number hide",
+                  winLayer: "winner-layer hide"
+                });
+              }, 5000);
+
               console.log("Ultime vincite: ", winningArray.current);
             }
           }
@@ -90,13 +111,13 @@ export default function NumberProvider({ children }) {
     return thisGameNumbers.current.numbers.indexOf(number) + 1;
   };
 
-  const winCheck = (cartella, riga, lastNumber) => {
-    if (winType.current < 5) {
-      let length = isCalled[cartella][riga].length;
-      if (length === winType.current + 1) {
-        winType.current++;
+  const winCheck = (cartella, riga) => {
+    if (winType < 5) {
+      const length = isCalled[cartella][riga].length;
+      if (length === winType + 1) {
+        setWinType((prev) => prev + 1);
         return {
-          winType: winningList[winType.current - 1],
+          winType: winningList[winType],
           cartella,
           riga,
           vincenti: [...isCalled[cartella][riga]],
@@ -104,15 +125,15 @@ export default function NumberProvider({ children }) {
         };
       }
     } else {
-      let length = [];
+      const length = [];
       length[0] = isCalled[cartella]["r0"].length;
       length[1] = isCalled[cartella]["r1"].length;
       length[2] = isCalled[cartella]["r2"].length;
 
       if (length[0] === 5 && length[1] === 5 && length[2] === 5) {
-        winType.current++;
+        setWinType((prev) => prev + 1);
         return {
-          winType: winningList[winType.current - 1],
+          winType: winningList[winType],
           cartella,
           riga,
           vincenti: isCalled[cartella],
@@ -136,6 +157,8 @@ export default function NumberProvider({ children }) {
         showOverlay,
         winType,
         myInterval,
+        winningList,
+        setWinType,
       }}
     >
       {children}

@@ -2,8 +2,8 @@ import "./numberOverlay.css";
 import { useContext } from "react";
 import { NumberContext } from "../../context/Numbers";
 import React from "react";
+import WinOverlay from "../WinOverlay/WinOverlay";
 // import { speakNow } from "../../util/speakNow";
-
 
 const NumberOverlay = () => {
   const { thisGameNumbers, indexOfExtracted, showOverlay, myInterval } =
@@ -14,13 +14,15 @@ const NumberOverlay = () => {
         <div
           className={showOverlay.bigNumber}
           onClick={() => {
-            clearInterval(myInterval.current);
-            myInterval.current = false;
-            // speakNow("Autoestrazione interrotta!")
+            if (myInterval.current) {
+              clearInterval(myInterval.current);
+              myInterval.current = false;
+            }
           }}
         >
           {thisGameNumbers.current.numbers[indexOfExtracted.current]}
         </div>
+        <WinOverlay />
       </div>
     </>
   );

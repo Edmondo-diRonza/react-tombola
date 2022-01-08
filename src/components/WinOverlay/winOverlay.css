@@ -1,0 +1,19 @@
+.winner-layer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  background-color: #1ba29b;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 200px;
+  font-weight: 900;
+  text-shadow: 4px 6px 12px black;
+  transition: opacity 1s;
+}
+.winner-layer.hide {
+    opacity: 0;  
+  }

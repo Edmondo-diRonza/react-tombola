@@ -17,8 +17,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  display: inline-block;
-  font-family: 'Montserrat', sans-serif;
+  display: inline-block;  
   font-family: 'Raleway', sans-serif;  
   text-align: center;
   font-weight: 700;
@@ -37,6 +36,5 @@
 }
 
 .big-number.hide {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0;  
 }

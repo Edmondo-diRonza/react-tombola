@@ -6,7 +6,11 @@ import LastExtracted from "./components/LastExtracted/LastExtracted";
 import NumberOverlay from "./components/NumberOverlay/NumberOverlay";
 
 function App() {
-  console.log("Dimensioni attuali della viewport ", window.screen.availWidth, window.screen.availHeight);
+  console.log(
+    "Dimensioni attuali della viewport ",
+    window.screen.availWidth,
+    window.screen.availHeight
+  );
   return (
     <NumberProvider>
       <div className="page-wrapper">
@@ -18,8 +22,8 @@ function App() {
           <section className="main-content">
             <div className="cartellone-wrapper">
               <Cartellone />
-              <NumberOverlay />
             </div>
+            <NumberOverlay />            
           </section>
         </main>
         <footer className="footer-wrapper">
