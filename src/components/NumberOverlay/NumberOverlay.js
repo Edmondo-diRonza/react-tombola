@@ -10,16 +10,16 @@ const NumberOverlay = () => {
     useContext(NumberContext);
   return (
     <>
-      <div className={showOverlay.overlay}>
-        <div
-          className={showOverlay.bigNumber}
-          onClick={() => {
-            if (myInterval.current) {
-              clearInterval(myInterval.current);
-              myInterval.current = false;
-            }
-          }}
-        >
+      <div
+        className={showOverlay.overlay}
+        onClick={() => {
+          if (myInterval.current) {
+            clearInterval(myInterval.current);
+            myInterval.current = false;
+          }
+        }}
+      >
+        <div className={showOverlay.bigNumber}>
           {thisGameNumbers.current.numbers[indexOfExtracted.current]}
         </div>
         <WinOverlay />

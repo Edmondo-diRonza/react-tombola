@@ -28,9 +28,21 @@ export default function NumberProvider({ children }) {
   }); // visualizzazione overlay
 
   const myInterval = useRef(false); //intervallo estrazione automatica
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const startGame = () => {
     thisGameNumbers.current = numberExtraction(90);
+    document.cookie = `array=${encodeURI(JSON.stringify(
+      thisGameNumbers.current
+    ))};expires=${tomorrow.toUTCString()}`; //salvo sul cookie
+
+    document.cookie = "index=; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //reset cookie backup-index
+    document.cookie = "isCalled=; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //reset cookie stato tabellone
+    document.cookie = "winType=; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //reset cookie vincite
+    document.cookie = "winningArray=; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //reset cookie stato array vincite
+    // document.cookie = `winType=1;expires=${tomorrow.toUTCString()}`;
+
     setIsCalled([
       { r0: [], r1: [], r2: [] },
       { r0: [], r1: [], r2: [] },
@@ -51,19 +63,23 @@ export default function NumberProvider({ children }) {
       if (winType !== 6) {
         if (indexOfExtracted.current < 89) {
           indexOfExtracted.current++;
+          document.cookie = `index=${
+            indexOfExtracted.current
+          };expires=${tomorrow.toUTCString()}`; //scrivo su un cookie l'ultimo indice estratto
+
           let extracted =
             thisGameNumbers.current.numbers[indexOfExtracted.current];
-          //creare una funzione e migliorare l'uscita dell'overlay
+          //creare una funzione e migliorare visualizzazione dell'overlay
           setShowOverlay({
             overlay: "overlay-layer",
             bigNumber: "big-number",
-            winLayer: "winner-layer hide"
+            winLayer: "winner-layer hide",
           });
           setTimeout(() => {
             setShowOverlay({
               overlay: "overlay-layer hide",
               bigNumber: "big-number hide",
-              winLayer: "winner-layer hide"
+              winLayer: "winner-layer hide",
             });
           }, 5000);
 
@@ -74,28 +90,37 @@ export default function NumberProvider({ children }) {
 
           //adesso controllo NON sia duplicato a causa del tasto step backward ed eventualmente memorizzo e controllo vincite
           if (!isCalled[cartella][riga].includes(extracted)) {
-            let arrayBackup = isCalled.map((el) => el);
+            // let arrayBackup = isCalled.map((el) => el);
+            const arrayBackup = [...isCalled];
             arrayBackup[cartella][riga].push(extracted);
             setIsCalled(arrayBackup);
+            document.cookie = `isCalled=${JSON.stringify(
+              isCalled
+            )};expires=${tomorrow.toUTCString()}`; //scrivo su uncookie lo stato vincite
 
             const currentWin = winCheck(cartella, riga, extracted);
             if (currentWin) {
               //controllo se c'è una vincita
               winningArray.current.push(currentWin); //creo un array con storico vincite
+              document.cookie = `winningArray=${encodeURI(JSON.stringify(
+                winningArray.current
+              ))};expires=${tomorrow.toUTCString()}`; //salvo sul cookie
 
-              clearInterval(myInterval.current); //fermo estrazione automatica
-              myInterval.current = false; //riporto a false la ref dell'intervallo
+              if (myInterval.current) {
+                clearInterval(myInterval.current); //fermo estrazione automatica se attiva
+                myInterval.current = false; //riporto a false la ref dell'intervallo
+              }
               speakNow(currentWin.winType);
               setShowOverlay({
                 overlay: "overlay-layer",
                 bigNumber: "big-number hide",
-                winLayer: "winner-layer"
+                winLayer: "winner-layer",
               });
               setTimeout(() => {
                 setShowOverlay({
                   overlay: "overlay-layer hide",
                   bigNumber: "big-number hide",
-                  winLayer: "winner-layer hide"
+                  winLayer: "winner-layer hide",
                 });
               }, 5000);
 
@@ -116,6 +141,10 @@ export default function NumberProvider({ children }) {
       const length = isCalled[cartella][riga].length;
       if (length === winType + 1) {
         setWinType((prev) => prev + 1);
+        document.cookie = `winType=${
+          winType + 1
+        };expires=${tomorrow.toUTCString()}`; //salvo sul cookie
+
         return {
           winType: winningList[winType],
           cartella,
@@ -159,6 +188,8 @@ export default function NumberProvider({ children }) {
         myInterval,
         winningList,
         setWinType,
+        winningArray,
+        tomorrow,
       }}
     >
       {children}
