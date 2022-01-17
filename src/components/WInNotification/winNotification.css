@@ -1,0 +1,71 @@
+.aside-overlay {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 20px 20px;
+}
+.aside-overlay li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.aside-notification {
+  display: flex;
+  /* position: fixed;
+    top:0;
+    right: 0; */
+  width: 250px;
+
+  background-color: #1ba29b;
+  color: white;
+  font-weight: 800;
+  opacity: 1;
+  transition: opacity 1s;
+  box-shadow: 0px 0px 12px white;
+  border-radius: 10px;
+}
+.aside-notification.hide {
+  opacity: 0;
+}
+.notification-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 20%;
+  padding: 15px 2px;
+  /* height: 100%; */
+  background-color: #136f6a;
+  font-size: 36px;
+  border-radius: 10px;
+}
+.number-extraction {
+  font-size: 16px;
+}
+.winning-body {
+  padding: 0px 8px;
+}
+.winning-numbers {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 75%;
+  line-height: 40px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
+.winning-numbers li {
+  list-style: none;
+  display: inline-block;
+}
+.winning-header {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;  
+}
+.close-notification {
+  font-size: 26px;
+  padding-right: 5px;
+}

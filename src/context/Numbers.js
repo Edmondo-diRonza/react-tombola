@@ -53,6 +53,7 @@ export default function NumberProvider({ children }) {
     ]);
     indexOfExtracted.current = -1; //azzero l'indice di estrazione
     setWinType(1);
+    winningArray.current = []; //reset array delle vincite
 
     speakNow("Partita inizializzata");
     console.log("Partita inizializzata!");
@@ -151,6 +152,7 @@ export default function NumberProvider({ children }) {
           riga,
           vincenti: [...isCalled[cartella][riga]],
           indiceNumeroEstratto: indexOfExtracted.current,
+          visible:true,
         };
       }
     } else {
@@ -165,8 +167,10 @@ export default function NumberProvider({ children }) {
           winType: winningList[winType],
           cartella,
           riga,
-          vincenti: isCalled[cartella],
+          vincenti: isCalled[cartella]["r0"].concat(isCalled[cartella]["r1"]).concat(isCalled[cartella]["r2"]),
           indiceNumeroEstratto: indexOfExtracted.current,
+          visible: true,
+
         };
       }
     }

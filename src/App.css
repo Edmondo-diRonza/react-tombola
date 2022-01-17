@@ -17,6 +17,9 @@ main {
   height: 100%;
   overflow-y: auto;
   background: linear-gradient(-180deg, #00c9ff 0%, #3494d2 100%);
+  
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#00C9FF", endColorstr="#3494D2", GradientType=1 );
 }
 .cartellone-wrapper {
   display: flex;
@@ -31,7 +34,13 @@ aside {
   height: 100%;
   padding: 20px;
   /* background: linear-gradient(45deg,#3494d2, #0cd977); */
-  background: linear-gradient(-180deg, #00c9ff 0%, #92fe9d 100%);
+  /* background: linear-gradient(-180deg, #00c9ff 0%, #92fe9d 100%); */
+  
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(152, 100%, 50%, 1) 0%,
+    hsla(186, 100%, 69%, 1) 100%
+  );  
   overflow-y: auto;
 }
 ::-webkit-scrollbar {
@@ -61,5 +70,5 @@ aside h4 {
   height: 100px;
   background: linear-gradient(180deg, #00c9ff 0%, #92fe9d 100%);
   text-align: center;
-  line-height: 100px;  
+  line-height: 100px;
 }

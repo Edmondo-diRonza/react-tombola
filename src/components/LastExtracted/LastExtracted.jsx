@@ -27,10 +27,3 @@ const LastExtracted = () => {
   );
 };
 export default LastExtracted;
-
-// lastNumbers.innerHTML +=
-//       "<li> <div class='numberlistitem'>" +
-//       arrayNumeri[contatore] +
-//       "</div> <p>" +
-//       (contatore + 1) +
-//       "° estratto </p> </li>";

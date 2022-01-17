@@ -4,6 +4,7 @@ import Buttons from "./components/Buttons/Buttons";
 import NumberProvider from "./context/Numbers";
 import LastExtracted from "./components/LastExtracted/LastExtracted";
 import NumberOverlay from "./components/NumberOverlay/NumberOverlay";
+import WinNotification from "./components/WInNotification/WinNotification";
 
 function App() {
   console.log(
@@ -23,8 +24,9 @@ function App() {
             <div className="cartellone-wrapper">
               <Cartellone />
             </div>
-            <NumberOverlay />            
+            <NumberOverlay />
           </section>
+          <WinNotification />
         </main>
         <footer className="footer-wrapper">
           <Buttons />
