@@ -60,7 +60,7 @@ aside h4 {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 30%;
+  /* height: 30%; */
   flex-wrap: wrap;
   align-content: space-around;
   align-items: center;

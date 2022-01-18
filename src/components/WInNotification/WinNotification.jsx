@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./winNotification.css";
 import { useContext } from "react";
 import { NumberContext } from "../../context/Numbers";
@@ -19,12 +19,20 @@ export default WinNotification;
 
 const SingleWinNotification = ({ i }) => {
   const { winningArray } = useContext(NumberContext);
+
+  const handleRemove = (index) => {
+    console.log(index);
+    alert("In lavorazione");
+  };
   return (
     <>
       <div className="aside-notification">
         <div className="notification-logo">
           <i className="fas fa-trophy"></i>
-          <div className="number-extraction">{winningArray.current[i].indiceNumeroEstratto+1}{"°"}</div>
+          <div className="number-extraction">
+            {winningArray.current[i].indiceNumeroEstratto + 1}
+            {"°"}
+          </div>
         </div>
         <div className="winning-numbers">
           <div className="winning-header">
@@ -44,7 +52,7 @@ const SingleWinNotification = ({ i }) => {
         <div className="close-notification">
           <i
             className="far fa-window-close"
-            onClick={() => alert("Ancora non implementato")}
+            onClick={() => handleRemove(i)}
           ></i>
         </div>
       </div>
