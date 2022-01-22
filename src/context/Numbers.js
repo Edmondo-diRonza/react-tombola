@@ -33,9 +33,9 @@ export default function NumberProvider({ children }) {
 
   const startGame = () => {
     thisGameNumbers.current = numberExtraction(90);
-    document.cookie = `array=${encodeURI(JSON.stringify(
-      thisGameNumbers.current
-    ))};expires=${tomorrow.toUTCString()}`; //salvo sul cookie
+    document.cookie = `array=${encodeURI(
+      JSON.stringify(thisGameNumbers.current)
+    )};expires=${tomorrow.toUTCString()}`; //salvo sul cookie
 
     document.cookie = "index=; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //reset cookie backup-index
     document.cookie = "isCalled=; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //reset cookie stato tabellone
@@ -59,7 +59,7 @@ export default function NumberProvider({ children }) {
     console.log("Partita inizializzata!");
   };
 
-  const callNumbers = () => {
+  const callNumbers = (overlayStatus = true, mute = false) => {
     if (thisGameNumbers.current.numbers) {
       if (winType !== 6) {
         if (indexOfExtracted.current < 89) {
@@ -71,20 +71,24 @@ export default function NumberProvider({ children }) {
           let extracted =
             thisGameNumbers.current.numbers[indexOfExtracted.current];
           //creare una funzione e migliorare visualizzazione dell'overlay
-          setShowOverlay({
-            overlay: "overlay-layer",
-            bigNumber: "big-number",
-            winLayer: "winner-layer hide",
-          });
-          setTimeout(() => {
-            setShowOverlay({
-              overlay: "overlay-layer hide",
-              bigNumber: "big-number hide",
-              winLayer: "winner-layer hide",
-            });
-          }, 5000);
-
-          speakNow(extracted);
+          const numberShow = (overlay) => {
+            if (overlay) {
+              setShowOverlay({
+                overlay: "overlay-layer",
+                bigNumber: "big-number",
+                winLayer: "winner-layer hide",
+              });
+              setTimeout(() => {
+                setShowOverlay({
+                  overlay: "overlay-layer hide",
+                  bigNumber: "big-number hide",
+                  winLayer: "winner-layer hide",
+                });
+              }, 5000);
+            }
+          };
+          numberShow(overlayStatus);
+          speakNow(extracted, mute);
           //cerco riga e cartella dove andranno memorizzati tramite funzioni su util
           let cartella = chooseCartella(extracted);
           let riga = chooseRowCartella(extracted);
@@ -103,9 +107,9 @@ export default function NumberProvider({ children }) {
             if (currentWin) {
               //controllo se c'è una vincita
               winningArray.current.push(currentWin); //creo un array con storico vincite
-              document.cookie = `winningArray=${encodeURI(JSON.stringify(
-                winningArray.current
-              ))};expires=${tomorrow.toUTCString()}`; //salvo sul cookie
+              document.cookie = `winningArray=${encodeURI(
+                JSON.stringify(winningArray.current)
+              )};expires=${tomorrow.toUTCString()}`; //salvo sul cookie
 
               if (myInterval.current) {
                 clearInterval(myInterval.current); //fermo estrazione automatica se attiva
@@ -124,8 +128,6 @@ export default function NumberProvider({ children }) {
                   winLayer: "winner-layer hide",
                 });
               }, 5000);
-
-              console.log("Ultime vincite: ", winningArray.current);
             }
           }
         } else console.log("Ultimo numero già estratto!");
@@ -152,7 +154,7 @@ export default function NumberProvider({ children }) {
           riga,
           vincenti: [...isCalled[cartella][riga]],
           indiceNumeroEstratto: indexOfExtracted.current,
-          visible:true,
+          visible: true,
         };
       }
     } else {
@@ -167,10 +169,11 @@ export default function NumberProvider({ children }) {
           winType: winningList[winType],
           cartella,
           riga,
-          vincenti: isCalled[cartella]["r0"].concat(isCalled[cartella]["r1"]).concat(isCalled[cartella]["r2"]),
+          vincenti: isCalled[cartella]["r0"]
+            .concat(isCalled[cartella]["r1"])
+            .concat(isCalled[cartella]["r2"]),
           indiceNumeroEstratto: indexOfExtracted.current,
           visible: true,
-
         };
       }
     }

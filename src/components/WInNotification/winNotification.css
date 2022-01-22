@@ -8,16 +8,14 @@
 }
 .aside-overlay li {
   list-style: none;
-  margin-bottom: 10px;
+  margin-bottom: 10px;  
 }
-
 .aside-notification {
   display: flex;
   /* position: fixed;
     top:0;
     right: 0; */
   width: 250px;
-
   background-color: #1ba29b;
   color: white;
   font-weight: 800;

@@ -1,50 +1,56 @@
-import React, { useState } from "react";
 import "./winNotification.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NumberContext } from "../../context/Numbers";
 
 const WinNotification = () => {
   const { winningArray } = useContext(NumberContext);
+  const [toRemove, setToRemove] = useState([]);
+  useEffect(() => {
+    if (winningArray.current.length === 0) {
+      setToRemove([]);
+    }    
+  }, [winningArray.current]);
   return (
     <div className="aside-overlay">
-      {winningArray.current.map((el, i) => (
-        <li key={i}>
-          <SingleWinNotification i={i} />
-        </li>
-      ))}
+      {winningArray.current
+        .filter((el) => !toRemove.includes(el.winType))
+        .map((singleWin, i) => (
+          <li key={i}>
+            <SingleWinNotification
+              winObj={singleWin}
+              i={i}
+              itemToRemove={(winType) => {
+                if (!toRemove.includes(winType)) {
+                  const backupArray = [...toRemove];
+                  backupArray.push(winType);
+                  setToRemove(backupArray);
+                }
+              }}
+            />
+          </li>
+        ))}
     </div>
   );
 };
 export default WinNotification;
 
-const SingleWinNotification = ({ i }) => {
-  const { winningArray } = useContext(NumberContext);
-
-  const handleRemove = (index) => {
-    console.log(index);
-    alert("In lavorazione");
-  };
+const SingleWinNotification = ({ i, itemToRemove, winObj }) => {
   return (
     <>
       <div className="aside-notification">
         <div className="notification-logo">
           <i className="fas fa-trophy"></i>
           <div className="number-extraction">
-            {winningArray.current[i].indiceNumeroEstratto + 1}
+            {winObj.indiceNumeroEstratto + 1}
             {"°"}
           </div>
         </div>
         <div className="winning-numbers">
-          <div className="winning-header">
-            {winningArray.current[i].winType}
-          </div>
+          {<div className="winning-header">{winObj.winType}</div>}
           <div className="winning-body">
-            {winningArray.current[i].vincenti.map((el, index) => (
+            {winObj.vincenti.map((el, index) => (
               <span key={index}>
-                {el}{" "}
-                {index < winningArray.current[i].vincenti.length - 1
-                  ? " - "
-                  : ""}
+                {el} {index < winObj.vincenti.length - 1 ? "-" : ""}
               </span>
             ))}
           </div>
@@ -52,7 +58,7 @@ const SingleWinNotification = ({ i }) => {
         <div className="close-notification">
           <i
             className="far fa-window-close"
-            onClick={() => handleRemove(i)}
+            onClick={() => itemToRemove(winObj.winType)}
           ></i>
         </div>
       </div>

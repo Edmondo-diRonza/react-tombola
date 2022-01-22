@@ -5,9 +5,9 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background-color: #ff9d14;
+  /* background-color: #ff9d14; */
+  background-color: #ffc400;
   /* background: linear-gradient(-180deg, #f18b00 0%, #ffc400 100%); */
-
 }
 .overlay-layer.hide {
   visibility: hidden;  

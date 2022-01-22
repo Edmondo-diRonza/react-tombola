@@ -26,17 +26,20 @@ const Buttons = () => {
   const handleStepBackward = () => {
     if (oneStepBackwardFlag) {
       indexOfExtracted.current -= 1;
-      callNumbers();
+      callNumbers(showOveralay, isMute);
     }
   };
   const handleAutoExtraction = () => {
-    speakNow("Autoestrazione attiva!");
-    callNumbers();
-    myInterval.current = setInterval(() => callNumbers(), 7000);
+    speakNow("Autoestrazione attiva!", isMute);
+    callNumbers(showOveralay, isMute);
+    myInterval.current = setInterval(
+      () => callNumbers(showOveralay, isMute),
+      7000
+    );
   };
   //funzione ripristino partita
   const handleResume = () => {
-    setResumeGame("btn greyed");
+    setResumeGame("btn small greyed");
 
     thisGameNumbers.current = getCookieValue("array", "J");
     setIsCalled(getCookieValue("isCalled", "J")); // ripristino isCalled
@@ -62,11 +65,15 @@ const Buttons = () => {
   };
 
   useEffect(() => {
-    disableResumeButton() ? setResumeGame("btn greyed") : setResumeGame("btn");
+    disableResumeButton()
+      ? setResumeGame("btn small greyed")
+      : setResumeGame("btn small");
   }, []);
+  const [showOveralay, setShowOverlay] = useState(true);
+  const [isMute, setIsMute] = useState(false);
 
   return (
-    <div>
+    <>
       <div className="buttons-container">
         <div className="game-setup">
           <button className={resumeGame} onClick={() => handleResume()}>
@@ -74,9 +81,9 @@ const Buttons = () => {
           </button>
 
           <button
-            className="btn"
+            className="btn small"
             onClick={() => {
-              setResumeGame("btn greyed");
+              setResumeGame("btn small greyed");
               startGame();
             }}
           >
@@ -110,7 +117,7 @@ const Buttons = () => {
 
           <button
             className={buttonStatus ? "btn greyed" : "btn "}
-            onClick={() => callNumbers()}
+            onClick={() => callNumbers(showOveralay, isMute)}
           >
             Avanti <i className="fas fa-chevron-circle-right"></i>
           </button>
@@ -154,19 +161,31 @@ const Buttons = () => {
             )}
           </div>
 
-          {/* <div className="checkboxes greyed">
-            <input
-              type="checkbox"
-              id="overlay-checkbox"
-              checked={true}
-              onChange={() => null}
-            />
-            <label for="overlay-checkbox">Mostra Numero</label>
-          </div> */}
+          {winType !== 6 && (
+            <div className="checkboxes">
+              <div className="single-checkbox">
+                <input
+                  type="checkbox"
+                  id="overlay-checkbox"
+                  checked={showOveralay}
+                  onChange={() => setShowOverlay((prevState) => !prevState)}
+                />
+                <label htmlFor="overlay-checkbox"> Sovraimpressione</label>
+              </div>
+              <div className="single-checkbox">
+                <input
+                  type="checkbox"
+                  id="speech-checkbox"
+                  checked={!isMute}
+                  onChange={() => setIsMute((prevState) => !prevState)}
+                />
+                <label htmlFor="overlay-checkbox"> Parlato</label>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
-
 export default Buttons;
