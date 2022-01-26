@@ -7,7 +7,9 @@ const WinOverlay = () => {
   const { winningList, winType, showOverlay } = useContext(NumberContext);
   return (
     <>
-      <div className={showOverlay.winLayer}>{winningList[winType - 1]}</div>
+      <div className={`${showOverlay.winLayer} noselect`}>
+        {winningList[winType - 1]}
+      </div>
     </>
   );
 };

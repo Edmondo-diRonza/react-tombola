@@ -7,34 +7,48 @@
   z-index: 1;
   /* background-color: #ff9d14; */
   background-color: #ffc400;
+  background: radial-gradient(
+    circle,
+    hsla(46, 100%, 50%, 1) 45%,
+    hsla(35, 100%, 54%, 1) 100%
+  );
   /* background: linear-gradient(-180deg, #f18b00 0%, #ffc400 100%); */
 }
 .overlay-layer.hide {
-  visibility: hidden;  
+  visibility: hidden;
 }
 .big-number {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  display: inline-block;  
-  font-family: 'Raleway', sans-serif;  
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  font-family: "Raleway", sans-serif;
   text-align: center;
   font-weight: 700;
   font-size: 45vh;
   width: 70vh;
   height: 70vh;
   color: #f18b00;
-  text-shadow: 6px 6px 3px #704100;
+  /* text-shadow: 6px 6px 3px #704100; */
+  text-shadow: 5px 5px 4px #000;
   border: 45px solid #704100;
   border-radius: 100%;
   line-height: 52vh;
   background-color: white;
-  box-shadow: 0px 0px 8px #fff;   
+  box-shadow: 0px 0px 8px #fff;
   transition: opacity 1s;
   opacity: 1;
 }
-
 .big-number.hide {
-  opacity: 0;  
+  opacity: 0;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

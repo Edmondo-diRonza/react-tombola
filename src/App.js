@@ -6,17 +6,12 @@ import LastExtracted from "./components/LastExtracted/LastExtracted";
 import NumberOverlay from "./components/NumberOverlay/NumberOverlay";
 import WinNotification from "./components/WInNotification/WinNotification";
 
-function App() {
-  console.log(
-    "Dimensioni attuali della viewport ",
-    window.screen.availWidth,
-    window.screen.availHeight
-  );
+function App() { 
   return (
     <NumberProvider>
       <div className="page-wrapper">
         <main>
-          <aside>
+          <aside className="left">
             <h1>Tombola 2022</h1>
             <LastExtracted />
           </aside>

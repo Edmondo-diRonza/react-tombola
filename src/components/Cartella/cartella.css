@@ -2,10 +2,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid #5e3700;
+  border: 1px solid #00165E;
   padding: 13px 15px;
-  border-radius: 40px;
-  width: calc(80% / 2);
+  border-radius: 40px;  
   margin-bottom: 0.3%;
   margin-right: 5%;
   box-shadow: 1px 1px 9px #fff;
@@ -13,6 +12,7 @@
   min-width: 310px;
   max-width: 440px;
   min-height: 255px;
+  width: 35%;
 }
 .row {
   display: flex;

@@ -3,12 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { NumberContext } from "../../context/Numbers";
 
 const WinNotification = () => {
+  // const vw = window.screen.availWidth;
   const { winningArray } = useContext(NumberContext);
   const [toRemove, setToRemove] = useState([]);
   useEffect(() => {
     if (winningArray.current.length === 0) {
       setToRemove([]);
-    }    
+    }
   }, [winningArray.current]);
   return (
     <div className="aside-overlay">

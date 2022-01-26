@@ -3,6 +3,8 @@
   font-size: 32px;
   font-weight: bold;
   color: #0066a6;
+  color: #245b7f;
+
   text-align: center;
   background-color: #fff;
   border-radius: 100%;
@@ -10,7 +12,7 @@
   max-width: 100px;
   height: 60px;
   line-height: 60px;
-  box-shadow: 1px 2px 3px #292929;
+  box-shadow: 1px 2px 2px #000;
   margin-right: 10px;
   transition: background-color 1s ease;
 }
@@ -20,7 +22,8 @@
   color: #fff;
 }
 .called-number {
-    background-color: #f18d00e3;
+    background-color: #f18d00;
+    background-color: #F08800;    
     color: white;    
   }
 

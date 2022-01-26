@@ -6,7 +6,7 @@
   align-items: center;
 }
 .winning-summary {
-  display: flex;  
+  display: flex;
   justify-content: space-around;
 }
 .winning-summary p {
@@ -20,8 +20,10 @@
   margin-right: 12px;
   font-size: 22px;
   border-radius: 10px;
-  border: 2px solid #0066a6;
-  color: #0066a6;
+  /* border: 2px solid #0066a6; */
+  border: 2px solid #004570;
+  /* color: #0066a6; */
+  color: #004570;
   text-transform: uppercase;
   box-shadow: 0px 0px 6px #fff;
 }
@@ -32,6 +34,8 @@
 }
 .btn:hover {
   background-color: #2b7cb3;
+  background-color: #004570;
+
   color: #fff;
 }
 .greyed {
@@ -43,31 +47,40 @@
   .btn {
     margin-right: 2px;
     padding: 5px 5px;
-  }
+  }  
   .show-winstatus span {
     font-size: 14px;
-
   }
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1366px) {
   .btn {
     font-size: 18px;
-    margin-right: 2px;
+    margin-right: 5px;
     padding: 5px 5px;
+  }
+  .small {
+    font-size: 14px;
   }
   .show-winstatus span {
     font-size: 14px;
-
+  }
+  .checkboxes {
+    font-size: 14px;
   }
 }
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
   .btn {
     font-size: 14px;
     margin-right: 2px;
     padding: 5px 5px;
+  }
+  .small {
+    font-size: 12px;
   }
   .show-winstatus span {
     font-size: 12px;
-
+  }
+  .checkboxes {
+    font-size: 12px;
   }
 }
